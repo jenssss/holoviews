@@ -244,7 +244,10 @@ def fix_aspect(fig, nrows, ncols, title=None, extra_artists=[],
     aspect = height/width
     offset = 0
     if title and title.get_text():
-        offset = title.get_window_extent().height/fig.dpi
+        try:
+            offset = title.get_window_extent().height/fig.dpi
+        except RuntimeError:
+            pass
     fig.set_size_inches(w, (w*aspect)+offset)
 
     # Redraw and adjust title position if defined
